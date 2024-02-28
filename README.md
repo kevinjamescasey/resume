@@ -1,3 +1,15 @@
+# Notes
+
+I think the `next build` and `next build` commands are setting NODE_ENV
+There is a hint about it at https://nextjs.org/docs/messages/non-standard-node-env
+
+## `next.config.mjs`
+
+Added `output: 'export'` to export a [static site](https://nextjs.org/docs/pages/building-your-application/deploying/static-exports)
+
+For GitHub pages the `basePath` had to be set to `/resume` because the links to CSS files use absolute paths. Is it possible to just make them use relative paths so a different `basePath` is needed for each environment?
+
+
 # Original README content created automatically by `create-next-app`
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
