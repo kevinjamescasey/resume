@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-14">
       <div className="space-y-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-        {process.env.NODE_ENV}
+        {process.env.NODE_ENV !== 'production' && <span className="text-red-500">{process.env.NODE_ENV}</span> }
         <div>
           <h2 className="text-2xl pb-3">Experience</h2>
           <ExperienceListByOrg tenures={resume.tenures} />
