@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 function Buzzwords({ buzzwords }: { buzzwords: Buzzword[] }) {
   return <div className="flex flex-row divide-x-2 divide-white">
-    {buzzwords.map((b,i) => <div key={i} className={"basis-1/8 flex-initial p-2 bg-slate-500" + (i === 0 ? " rounded-s": "") + (i === buzzwords.length - 1 ? " rounded-e": "")} >{b.name}</div>)}
+    {buzzwords.map((b, i) => <div key={i} className={"basis-1/8 flex-initial p-2 bg-slate-500" + (i === 0 ? " rounded-s" : "") + (i === buzzwords.length - 1 ? " rounded-e" : "")} >{b.name}</div>)}
   </div>
 }
 
@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-14">
       <div className="space-y-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-
+        {process.env.NODE_ENV}
         <div>
           <h2 className="text-2xl pb-3">Experience</h2>
           <ExperienceListByOrg tenures={resume.tenures} />
