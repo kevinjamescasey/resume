@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 function Buzzwords({ buzzwords }: { buzzwords: Buzzword[] }) {
   return <div className="flex flex-row divide-x-2 divide-white">
-    {buzzwords.map((b,i) => <div className={"basis-1/8 flex-initial p-2 bg-slate-500" + (i === 0 ? " rounded-s": "") + (i === buzzwords.length - 1 ? " rounded-e": "")} >{b.name}</div>)}
+    {buzzwords.map((b,i) => <div key={i} className={"basis-1/8 flex-initial p-2 bg-slate-500" + (i === 0 ? " rounded-s": "") + (i === buzzwords.length - 1 ? " rounded-e": "")} >{b.name}</div>)}
   </div>
 }
 
@@ -31,12 +31,12 @@ interface OrgStent {
 }
 
 
-function OrgStentDisplay({ orgStent }: { orgStent: OrgStent }) {
+function OrgStentDisplay({ orgStent, key }: { orgStent: OrgStent, key: number }) {
 
   const from = _.minBy(orgStent.tenures, 'startDate')
   const to = _.maxBy(orgStent.tenures, 'endDate')
 
-  return <div className="py-2">
+  return <div className="py-2" key={key}>
     <h3 className="text-xl">{orgStent.orgName}</h3>
     <h2>{from && from.startDate} - {to && to.endDate}</h2>
 
@@ -67,7 +67,7 @@ function ExperienceListByOrg({ tenures }: { tenures: Tenure[] }) {
   }
 
 
-  return orgs.map((o, i) => <OrgStentDisplay orgStent={o} />)
+  return orgs.map((o, i) => <OrgStentDisplay orgStent={o} key={i} />)
 }
 
 function ExperienceListByTeam({ tenures }: { tenures: Tenure[] }) { }
