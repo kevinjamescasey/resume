@@ -8,18 +8,18 @@ function Buzzwords({ buzzwords }: { buzzwords: Buzzword[] }) {
   </div>
 }
 
-function ProjectDisplay({ project, key }: { project: Project, key: number }) {
-  return <div key={key}>
+function ProjectDisplay({ project }: { project: Project }) {
+  return <div key={project.name}>
     <div><span>{project.name}</span></div>
     <Buzzwords buzzwords={project.buzzwords} />
   </div>
 }
 
-function Tenure({ tenure, key, showDates = true }: { tenure: Tenure, key: number, showDates?: boolean }) {
+function Tenure({ tenure, showDates = true }: { tenure: Tenure, showDates?: boolean }) {
   if (tenure.projects && tenure.projects.length) {
-    return tenure.projects.map((p, i) => <ProjectDisplay project={p} key={i} />)
+    return tenure.projects.map((p, i) => <ProjectDisplay project={p} />)
   }
-  return (<div key={key}>
+  return (<div key={tenure.title + tenure.startDate + tenure.endDate}>
     <div>{showDates && <span>{tenure.startDate} - {tenure.endDate} </span>}{tenure.title}{tenure.team && <span> - {tenure.team.name}</span>}</div>
     {tenure.buzzwords && <Buzzwords buzzwords={tenure.buzzwords} />}
   </div>)
@@ -31,12 +31,12 @@ interface OrgStent {
 }
 
 
-function OrgStentDisplay({ orgStent, key }: { orgStent: OrgStent, key: number }) {
+function OrgStentDisplay({ orgStent }: { orgStent: OrgStent }) {
 
   const from = _.minBy(orgStent.tenures, 'startDate')
   const to = _.maxBy(orgStent.tenures, 'endDate')
 
-  return <div className="py-2" key={key}>
+  return <div className="py-2" key={orgStent.orgName + from + to}>
     <h3 className="text-xl">{orgStent.orgName}</h3>
     <h2>{from && from.startDate} - {to && to.endDate}</h2>
 
@@ -67,7 +67,7 @@ function ExperienceListByOrg({ tenures }: { tenures: Tenure[] }) {
   }
 
 
-  return orgs.map((o, i) => <OrgStentDisplay orgStent={o} key={i} />)
+  return orgs.map((o) => <OrgStentDisplay orgStent={o} />)
 }
 
 function ExperienceListByTeam({ tenures }: { tenures: Tenure[] }) { }
@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-14">
       <div className="space-y-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-        {process.env.NODE_ENV !== 'production' && <span className="text-red-500">{process.env.NODE_ENV}</span> }
+        {process.env.NODE_ENV !== 'production' && <span className="text-red-500">{process.env.NODE_ENV}</span>}
         <div>
           <h2 className="text-2xl pb-3">Experience</h2>
           <ExperienceListByOrg tenures={resume.tenures} />
