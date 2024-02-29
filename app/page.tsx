@@ -4,7 +4,7 @@ import { resume, Tenure, Project, Buzzword } from './data'
 import _, { filter } from 'lodash'
 import { useState } from "react"
 
-function Filter({ filterText, setFilterText }) {
+function Filter({ filterText, setFilterText }: { filterText:string, setFilterText: (t:string)=>void }) {
   return <input type="text" placeholder="highlight by buzzwords like 'web API'" className="top-5 right-10 fixed text-black" value={filterText} onChange={(e) => setFilterText(e.target.value)} />
 }
 
@@ -37,16 +37,16 @@ function Buzzwords({ buzzwords, filterText }: { buzzwords: Buzzword[], filterTex
   </div>
 }
 
-function ProjectDisplay({ project, filterText }: { project: Project }) {
+function ProjectDisplay({ project, filterText }: { project: Project,filterText:string }) {
   return <div key={project.name}>
     <div><span>{project.name}</span></div>
     <Buzzwords buzzwords={project.buzzwords} filterText={filterText}/>
   </div>
 }
 
-function Tenure({ tenure, showDates = true, filterText }: { tenure: Tenure, showDates?: boolean }) {
+function Tenure({ tenure, showDates = true, filterText }: { tenure: Tenure, showDates?: boolean,filterText:string }) {
   if (tenure.projects && tenure.projects.length) {
-    return tenure.projects.map((p) => <ProjectDisplay project={p} filterText={filterText}/>)
+    return tenure.projects.map((p) => <ProjectDisplay project={p} filterText={filterText} key={p.name}/>) //TODO: investigate if key prop is used correctly?
   }
   return (<div key={tenure.title + tenure.startDate + tenure.endDate}>
     <div>{showDates && <span>{tenure.startDate} - {tenure.endDate} </span>}{tenure.title}{tenure.team && <span> - {tenure.team.name}</span>}</div>
@@ -60,7 +60,7 @@ interface OrgStent {
 }
 
 
-function OrgStentDisplay({ orgStent, filterText }: { orgStent: OrgStent }) {
+function OrgStentDisplay({ orgStent, filterText }: { orgStent: OrgStent,filterText:string }) {
 
   const from = _.minBy(orgStent.tenures, 'startDate')
   const to = _.maxBy(orgStent.tenures, 'endDate')
@@ -74,7 +74,7 @@ function OrgStentDisplay({ orgStent, filterText }: { orgStent: OrgStent }) {
 
 }
 
-function ExperienceListByOrg({ tenures, filterText }: { tenures: Tenure[] }) {
+function ExperienceListByOrg({ tenures, filterText }: { tenures: Tenure[], filterText:string }) {
   const tenuresSorted = _.orderBy(tenures, ['startDate'], ['desc'])
 
   let currentOrgName = null
@@ -96,14 +96,14 @@ function ExperienceListByOrg({ tenures, filterText }: { tenures: Tenure[] }) {
   }
 
 
-  return orgs.map((o) => <OrgStentDisplay orgStent={o} filterText={filterText} />)
+  return orgs.map((o) => <OrgStentDisplay orgStent={o} filterText={filterText} key={o.orgName}/>)  //TODO: investigate if key prop is used correctly? orgNames could be duplicated so maybe need to add more details or random fixed ID
 }
 
 
-function ExperienceList({ tenures, showDates = true, filterText }: { tenures: Tenure[], showDates?: boolean }) {
+function ExperienceList({ tenures, showDates = true, filterText }: { tenures: Tenure[], showDates?: boolean, filterText:string }) {
   const tenuresSorted = _.orderBy(tenures, ['startDate'], ['desc'])
 
-  return <div>{tenuresSorted.map((t) => <Tenure tenure={t} showDates={showDates} filterText={filterText} />)}</div>
+  return <div>{tenuresSorted.map((t) => <Tenure tenure={t} showDates={showDates} filterText={filterText} key={t.title + t.startDate + t.endDate}/>)}</div> //TODO investigate if key prop is used correctly. might need to remove it from divs
 }
 
 
