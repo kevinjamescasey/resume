@@ -1,27 +1,56 @@
-import Image from "next/image";
+'use client'
+//import Image from "next/image";
 import { resume, Tenure, Project, Buzzword } from './data'
-import _ from 'lodash'
+import _, { filter } from 'lodash'
+import { useState } from "react"
 
-function Buzzwords({ buzzwords }: { buzzwords: Buzzword[] }) {
+function Filter({ filterText, setFilterText }) {
+  return <input type="text" placeholder="highlight by buzzwords like 'web API'" className="top-5 right-10 fixed text-black" value={filterText} onChange={(e) => setFilterText(e.target.value)} />
+}
+
+function Buzzwords({ buzzwords, filterText }: { buzzwords: Buzzword[], filterText: string }) {
+
+
+  function matches(buzzword: Buzzword, filterText: string) {
+
+    function nameMatches(name: string, filterText: string){
+      return filterText && name && filterText.toLowerCase().includes(name.toLowerCase())
+    }
+
+    if(buzzword && filterText){
+
+      if(nameMatches(buzzword.name, filterText)){
+        return true
+      } else{
+        for(const b of buzzword.related){
+          const match = matches(b, filterText)
+          if(match){
+            return true
+          }
+        }
+      }
+    }
+  }
+
   return <div className="flex flex-row divide-x-2 divide-white">
-    {buzzwords.map((b, i) => <div key={i} className={"basis-1/8 flex-initial p-2 bg-slate-500" + (i === 0 ? " rounded-s" : "") + (i === buzzwords.length - 1 ? " rounded-e" : "")} >{b.name}</div>)}
+    {buzzwords.map((b, i) => <div key={b.name} className={"basis-1/8 flex-initial p-2 " + (matches(b, filterText) ? " bg-red-300" : " bg-slate-500") + (i === 0 ? " rounded-s" : "") + (i === buzzwords.length - 1 ? " rounded-e" : "")} >{b.name}</div>)}
   </div>
 }
 
-function ProjectDisplay({ project }: { project: Project }) {
+function ProjectDisplay({ project, filterText }: { project: Project }) {
   return <div key={project.name}>
     <div><span>{project.name}</span></div>
-    <Buzzwords buzzwords={project.buzzwords} />
+    <Buzzwords buzzwords={project.buzzwords} filterText={filterText}/>
   </div>
 }
 
-function Tenure({ tenure, showDates = true }: { tenure: Tenure, showDates?: boolean }) {
+function Tenure({ tenure, showDates = true, filterText }: { tenure: Tenure, showDates?: boolean }) {
   if (tenure.projects && tenure.projects.length) {
-    return tenure.projects.map((p, i) => <ProjectDisplay project={p} />)
+    return tenure.projects.map((p) => <ProjectDisplay project={p} filterText={filterText}/>)
   }
   return (<div key={tenure.title + tenure.startDate + tenure.endDate}>
     <div>{showDates && <span>{tenure.startDate} - {tenure.endDate} </span>}{tenure.title}{tenure.team && <span> - {tenure.team.name}</span>}</div>
-    {tenure.buzzwords && <Buzzwords buzzwords={tenure.buzzwords} />}
+    {tenure.buzzwords && <Buzzwords buzzwords={tenure.buzzwords} filterText={filterText} />}
   </div>)
 }
 
@@ -31,7 +60,7 @@ interface OrgStent {
 }
 
 
-function OrgStentDisplay({ orgStent }: { orgStent: OrgStent }) {
+function OrgStentDisplay({ orgStent, filterText }: { orgStent: OrgStent }) {
 
   const from = _.minBy(orgStent.tenures, 'startDate')
   const to = _.maxBy(orgStent.tenures, 'endDate')
@@ -40,12 +69,12 @@ function OrgStentDisplay({ orgStent }: { orgStent: OrgStent }) {
     <h3 className="text-xl">{orgStent.orgName}</h3>
     <h2>{from && from.startDate} - {to && to.endDate}</h2>
 
-    <ExperienceList tenures={orgStent.tenures} showDates={false} />
+    <ExperienceList tenures={orgStent.tenures} showDates={false} filterText={filterText} />
   </div>
 
 }
 
-function ExperienceListByOrg({ tenures }: { tenures: Tenure[] }) {
+function ExperienceListByOrg({ tenures, filterText }: { tenures: Tenure[] }) {
   const tenuresSorted = _.orderBy(tenures, ['startDate'], ['desc'])
 
   let currentOrgName = null
@@ -67,15 +96,14 @@ function ExperienceListByOrg({ tenures }: { tenures: Tenure[] }) {
   }
 
 
-  return orgs.map((o) => <OrgStentDisplay orgStent={o} />)
+  return orgs.map((o) => <OrgStentDisplay orgStent={o} filterText={filterText} />)
 }
 
-function ExperienceListByTeam({ tenures }: { tenures: Tenure[] }) { }
 
-function ExperienceList({ tenures, showDates = true }: { tenures: Tenure[], showDates?: boolean }) {
+function ExperienceList({ tenures, showDates = true, filterText }: { tenures: Tenure[], showDates?: boolean }) {
   const tenuresSorted = _.orderBy(tenures, ['startDate'], ['desc'])
 
-  return <div>{tenuresSorted.map((t, i) => <Tenure tenure={t} key={i} showDates={showDates} />)}</div>
+  return <div>{tenuresSorted.map((t) => <Tenure tenure={t} showDates={showDates} filterText={filterText} />)}</div>
 }
 
 
@@ -91,18 +119,28 @@ function Education() {
   </>)
 }
 
+
+function FilterableResume() {
+  const [filterText, setFilterText] = useState('')
+  return <div>
+    <Filter filterText={filterText} setFilterText={setFilterText} />
+    <div>
+      <h2 className="text-2xl pb-3">Experience</h2>
+      <ExperienceListByOrg tenures={resume.tenures} filterText={filterText} />
+    </div>
+    <div>
+      <Education />
+    </div>
+
+  </div>
+}
 export default function Home() {
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-14">
       <div className="space-y-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
         {process.env.NODE_ENV !== 'production' && <span className="text-red-500">{process.env.NODE_ENV}</span>}
-        <div>
-          <h2 className="text-2xl pb-3">Experience</h2>
-          <ExperienceListByOrg tenures={resume.tenures} />
-        </div>
-        <div>
-          <Education />
-        </div>
+        <FilterableResume />
         {/* <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
           <code className="font-mono font-bold">app/page.tsx</code>

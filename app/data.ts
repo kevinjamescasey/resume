@@ -24,15 +24,26 @@ const cloudOps = { name: "Cloud Engineering", organization: bayer }
 
 const teams = [sam, vsss, robotask, cim, sdp, forceAnalyst, isaac, prodDev, cloudOps]
 
+const integration = bz("integration")
+const http = bz("HTTP")
+const api = bz("Application Programmer's Interface (API)", [bz("API"),integration])
+const microservice = bz("microservice")
+const service = bz("Service", [api, http, microservice])
+const soa = bz("Service Oriented Archtecture (SOA)", [bz("SOA"),  service])
 const oo = bz("Object Oriented")
-const programmingLanguage = bz("Programming Language")
-const jvm = bz("Java Virtual Machine (JVM)")
+const programmingLanguage = bz("Programming Language", [bz("programming"), api])
+const cobol = bz("COBOL", [programmingLanguage])
+const pl1 = bz("PL/I", [programmingLanguage])
+const mainframe = bz("Mainframe")
+const ibmAsm = bz("IBM ASM", [bz("assembly language"), mainframe, programmingLanguage])
+const jcl =  bz("JCL", [mainframe])
+const jvm = bz("Java Virtual Machine (JVM)", [bz("JVM")])
 const java = bz("Java", [oo, programmingLanguage, jvm])
-const web = bz("Web", [bz("HTTP"), bz("HTML")])
-const server = bz("Server", [bz("back end")])
+const web = bz("Web", [http, bz("HTML")])
+const server = bz("Server", [bz("back end"), api])
 const pattern = bz("pattern")
 const javascript = bz("JavaScript", [programmingLanguage])
-const j2ee =  bz("J2EE", [java])
+const j2ee = bz("J2EE", [java])
 const ejb = bz("EJB", [java, j2ee])
 const jsp = bz("JSP", [web, java, server])
 const json = bz("JSON", [javascript])
@@ -56,35 +67,120 @@ const ksh = bz("Ksh", [scripting, unix, linux])
 const hpUx = bz("HP-UX", [unix])
 const db2 = bz("DB2", [relational])
 const etl = bz("Extract Transform Load (ETL)", [database, sql])
-const datastage = bz("IBM DataStage",  [etl])
+const datastage = bz("IBM DataStage", [etl])
 const aix = bz("IBM AIX", [unix])
 const oracleDb = bz("Oracle DB", [relational])
 const plSql = bz("PL/SQL", [sql, oracleDb])
-const ui = bz("User Interface (UI)", [bz("front end")])
-const gui = bz("Graphical User Interface (GUI)", [ui])
+
+const ui = bz("User Interface (UI)", [bz("UI"), bz("front end")])
+const gui = bz("Graphical User Interface (GUI)", [bz("GUI"), ui])
 const swing = bz("Swing", [java, gui])
-const spring = bz("Spring Framework", [java, server])
-const was  = bz("IBM Websphere Applicaiton Server", [j2ee, ejb, web])
+const spring = bz("Spring Framework", [bz("Spring"), java, server])
+const was = bz("IBM Websphere Applicaiton Server", [j2ee, ejb, web])
 const bpel = bz("Business Process Execution Language (BPEL)")
 const wps = bz("IBM Websphere Process Server", [j2ee, bpel])
-const api = bz("Application Programmer's Interface (API)")
-const webService = bz("Web Service", [web, api])
-const soap = bz("Simple Object Access Protocol (SOAP)", [web, webService])
+
+const webService = bz("Web Service", [web, api, service])
+const soap = bz("Simple Object Access Protocol (SOAP)", [web, webService, xml])
 const jms = bz("JMS", [j2ee])
 const rhino = bz("Rhino", [javascript, jvm])
-const springDataJpa = bz("Spring Data JPA", [spring, orm, j2ee ])
+const springDataJpa = bz("Spring Data JPA", [spring, orm, j2ee])
 const jquery = bz("JQuery", [javascript, web, gui])
 const jsf = bz("Java Server Faces (JSF)", [gui, web])
-const css = bz("Cascading Style Sheets (CSS)", [web, gui])
+const css = bz("Cascading Style Sheets (CSS)", [bz("CSS"),web, gui])
 const twitterBootstrap = bz("Twitter Bootstrap", [css])
-const thymeLeaf = bz("Thymeleaf",  [web, gui])
+const thymeLeaf = bz("Thymeleaf", [web, gui])
 const springWebMvc = bz("Spring Web MVC", [spring, web, mvc, server])
 const springWebflow = bz("Spring Webflow", [spring, web, gui])
+const cicd = bz("Continuous Integration/Continuous Deployment", [bz("CI/CD")])
+
+const knockoutJs = bz("Knockout", [javascript, web, gui])
+const requireJs = bz("RequireJS", [javascript])
+const jackson = bz("Jackson", [java, json])
+const security = bz("Security")
+const authn  = bz("Authentication", [security, bz("authn"), bz("identity")])
+const authz  = bz("Authorization", [security, bz("authz")])
+const apacheShiro = bz("Apache Shiro", [java, authn])
+const googleCharts = bz("Google Charts", [javascript, web, gui])
+const apacheCamel = bz("Apache Camel", [java])
+const python = bz("Python", [programmingLanguage])
+const weblogic = bz("IBM WebLogic", [bz("WebLogic"), j2ee])
+const react = bz("React", [web, gui])
+const redux = bz("Redux", [react])
+const nodeJs = bz("NodeJs", [server, web, javascript])
+const noSql = bz("NoSql", [database])
+const mongoDb = bz("MongoDb", [database, noSql])
+const fp = bz("Functional Programming")
+const clojure = bz("Clojure", [programmingLanguage, jvm, fp])
+const liberator = bz("Liberator", [web, clojure])
+const data = bz("data")
+const streaming = bz("Streaming", [data])
+const middleWare = bz("Middleware")
+const kafka = bz("Kafka", [streaming, data, integration, middleWare])
+const scala = bz("Scala", [programmingLanguage, jvm, fp, oo])
+const playFramework = bz("Play Frameowrk", [scala, web])
+const postgreSql = bz("PostgreSQL", [relational])
+const paas = bz("Platform as a Service", [bz("PaaS")])
+const containers = bz("containers")
+const cloudFoundry = bz("Cloud Foundry", [paas, containers])
+const cloud = bz("cloud")
+const aws = bz("AWS", [cloud])
+const iac = bz("Infrastructure as Code", [bz("IaC")])
+const cloudFormation = bz("Cloud Formation", [aws, iac])
+const jenkins = bz("Jenkins", [cicd])
+const teamCity = bz("Team City", [cicd])
+const debian = bz("Debian", [linux])
+const windows = bz("Windows", [os])
+const macOs = bz("MacOs", [os])
+const vpc = bz("VPC", [aws]) 
+const transitGateway = bz("Trasit Gateway", [aws]) 
+const stno = bz("Serverless Transit Network Orchestrator", [aws, vpc, transitGateway]) 
+const ec2 = bz("EC2", [aws]) 
+const git = bz("Git")
+const githubEnterprise = bz("GitHub Enterprise", [git])
+const dome9 = bz("Dome9", [cloud, security]) 
+const saml = bz("SAML", [authn]) 
+const azureAd = bz("AzureAd", [authn]) 
+const bosh = bz("BOSH",  [cloudFoundry]) 
+const certs = bz("SSL Certificate", [security]) 
+const slack = bz("Slack") 
+const lambda = bz("AWS Lambda", [aws, bz("Lambda")]) 
+const sqs = bz("AWS SQS", [aws, bz("SQS"), middleWare]) 
+const serviceCatalog = bz("AWS Service Catalog", [aws]) 
+const ecs = bz("AWS ECS", [bz("ECS"), aws, containers]) 
+const fargate = bz("Fargate", [aws, ecs, containers]) 
+const dynamoDb = bz("DynamoDB", [aws, noSql, database]) 
+const cloudWatch = bz("AWS CloudWatch", [aws]) 
+const cloudTrail = bz("AWS CloudTrail", [aws]) 
+const awsOrgs = bz("AWS Organizations", [aws]) 
+const awsIam = bz("AWS IAM", [aws, authn, authz]) 
+const awsAlb = bz("AWS ALB", [aws, middleWare, integration])
+const observaiblity = bz("Observability")
+const splunk = bz("Splunk", [observaiblity])
+const hashicorpVault = bz("HashiCorp Vault", [security])
+const redshift= bz("AWS Redshift", [aws, database, relational])
+const fivetran= bz("Fivetran", [data, integration, middleWare])
+const dbt= bz("DBT", [relational])
+const beansstalk= bz("AWS Beanstalk", [aws, ec2])
+const cdk= bz("Cloud Development Kit (CDK)", [bz("CDK"), aws, iac])
+const circleCi= bz("CircleCI", [cicd])
+const heroku= bz("Heroku", [paas, cloud])
+const graphQl= bz("GraphQL", [api, service])
+const appSync= bz("AWS AppSync", [aws, web, api, graphQl, integration])
+const meteor= bz("Meteor", [web, javascript])
+const typescript= bz("TypeScript", [javascript])
+const mobile = bz("Mobile")
+const reactNative= bz("React Native", [gui, mobile])
+const timesream= bz("Timestream", [aws, database,noSql])
+const newRelic= bz("New Relic", [observaiblity])
+const docker= bz("Docker", [containers])
+const ansible = bz("Ansible")
+
 
 const mts = { name: "MTS", organization: fed, buzzwords: [springDataJpa] }
-const brs = { name: "BRS", organization: fed, buzzwords: [hibernate, struts, jquery, thymeLeaf, twitterBootstrap, springWebMvc,  springWebflow, springDataJpa ] }
-const btm = { name: "BTM", organization: fed, buzzwords: [jsf, spring, hibernate] }
-const cars = { name: "CARS", organization: fed, buzzwords: [j2ee] }
+const brs = { name: "BRS", organization: fed, buzzwords: [hibernate, struts, jquery, thymeLeaf, twitterBootstrap, springWebMvc, springWebflow, springDataJpa] }
+const btm = { name: "BTM", organization: fed, buzzwords: [jsf, spring, hibernate, weblogic, python] }
+const cars = { name: "CARS", organization: fed, buzzwords: [j2ee, weblogic, python] }
 
 
 const tenures: Tenure[] = [
@@ -95,7 +191,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [att],
         team: sam,
-        buzzwords: [bz("COBOL"), bz("PL/I"), bz("IBM ASM", [bz("assembly language")]), bz("JCL"), bz("Mainframe")]
+        buzzwords: [cobol, pl1, ibmAsm, jcl, mainframe]
     },
     {
         startDate: "2006/01",
@@ -131,7 +227,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [att],
         team: sdp,
-        buzzwords: [wps, soap, jms, java, bpel, xml, j2ee, ejb, oracleDb]
+        buzzwords: [wps, soap, jms, java, bpel, xml, j2ee, ejb, oracleDb, bz("Cruise Control", [cicd])]
     },
     {
         startDate: "2010/01",
@@ -140,7 +236,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [att],
         team: forceAnalyst,
-        buzzwords: [swing, java, spring ]
+        buzzwords: [swing, java, spring]
     },
     {
         startDate: "2010/09",
@@ -166,6 +262,7 @@ const tenures: Tenure[] = [
         title: "Senior Software Engineer",
         role: "programmer",
         organizations: [suddenlink, ferguson],
+        buzzwords: [knockoutJs, requireJs, jquery, twitterBootstrap, javascript, jsp, springWebMvc, jackson, apacheShiro, googleCharts, springDataJpa, hibernate, apacheCamel, webService, oracleDb]
     },
 
     {
@@ -174,7 +271,8 @@ const tenures: Tenure[] = [
         title: "Senior Software Engineer",
         role: "programmer",
         organizations: [bayer, signature],
-        team: prodDev
+        team: prodDev,
+        buzzwords: [react, redux, nodeJs, mongoDb, clojure, liberator, scala, playFramework, postgreSql, cloudFoundry, cloudFormation, jenkins, teamCity, debian, windows, macOs, kafka]
     },
     {
         startDate: "2017/07",
@@ -190,7 +288,9 @@ const tenures: Tenure[] = [
         title: "Senior AWS Cloud Engineer",
         role: "programmer",
         organizations: [bayer],
-        team: cloudOps
+        team: cloudOps,
+        buzzwords: [vpc, transitGateway, stno, ec2, githubEnterprise, dome9, saml, azureAd, bosh, cloudFoundry, certs, slack, lambda, sqs, python, serviceCatalog, ecs, fargate, dynamoDb, cloudWatch, cloudTrail, awsOrgs, awsIam, splunk, hashicorpVault, awsAlb], 
+
     },
 
     {
@@ -199,21 +299,22 @@ const tenures: Tenure[] = [
         title: "Senior Software Engineer",
         role: "programmer",
         organizations: [veho],
+        buzzwords: [redshift, fivetran, dbt, beansstalk, ecs, cdk, circleCi, heroku, lambda, dynamoDb, appSync, graphQl, mongoDb, meteor, typescript, reactNative, timesream, cloudWatch, newRelic, docker, ansible, ec2, awsIam ]
     },
 
 
 ]
 
-export interface Buzzword{
+export interface Buzzword {
     name: string
     related: Buzzword[]
 }
 
-function bz(name: string, related: Buzzword[] = [] ) {
-    return {name, related}
+function bz(name: string, related: Buzzword[] = []) {
+    return { name, related }
 }
 
-export interface Project{
+export interface Project {
     name: string
     buzzwords: Buzzword[]
 }
