@@ -1,6 +1,6 @@
 
 const att = { name: "SBC/AT&T", purpose: "Telecommunications Company" }
-const fed = { name: "Federal Resreve Bank of St. Louis", purpose: "Central Bank" }
+const fed = { name: "Federal Reserve Bank of St. Louis", purpose: "Central Bank" }
 const adaptive = { name: "Adaptive Solutions Group", purpose: "Staffing Company" }
 const suddenlink = { name: "Suddenlink", purpose: "Telecommunications Company" }
 const ferguson = { name: "Ferguson", purpose: "Staffing Company" }
@@ -133,7 +133,7 @@ const debian = bz("Debian", [linux])
 const windows = bz("Windows", [os])
 const macOs = bz("MacOs", [os])
 const vpc = bz("VPC", [aws]) 
-const transitGateway = bz("Trasit Gateway", [aws]) 
+const transitGateway = bz("Transit Gateway", [aws]) 
 const stno = bz("Serverless Transit Network Orchestrator", [aws, vpc, transitGateway]) 
 const ec2 = bz("EC2", [aws]) 
 const git = bz("Git")

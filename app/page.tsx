@@ -5,7 +5,7 @@ import _, { filter } from 'lodash'
 import { useState } from "react"
 
 function Filter({ filterText, setFilterText }: { filterText:string, setFilterText: (t:string)=>void }) {
-  return <input type="text" placeholder="highlight by buzzwords like 'web API'" className="top-5 right-10 fixed text-black" value={filterText} onChange={(e) => setFilterText(e.target.value)} />
+  return <input type="text" placeholder="web OR cloud OR..." className="top-5 right-10 fixed text-black" value={filterText} onChange={(e) => setFilterText(e.target.value)} />
 }
 
 function Buzzwords({ buzzwords, filterText }: { buzzwords: Buzzword[], filterText: string }) {
