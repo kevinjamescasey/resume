@@ -175,12 +175,18 @@ const timesream= bz("Timestream", [aws, database,noSql])
 const newRelic= bz("New Relic", [observaiblity])
 const docker= bz("Docker", [containers])
 const ansible = bz("Ansible")
+const testing = bz("testing", [bz("test")])
+const junit = bz("JUnit", [testing])
+const jest = bz("Jest", [testing])
+const mocha = bz("Mocha", [testing])
+
+//TODO: some terms need better results: API, REST, distributed, design, architecture
 
 
-const mts = { name: "MTS", organization: fed, buzzwords: [springDataJpa] }
-const brs = { name: "BRS", organization: fed, buzzwords: [hibernate, struts, jquery, thymeLeaf, twitterBootstrap, springWebMvc, springWebflow, springDataJpa] }
-const btm = { name: "BTM", organization: fed, buzzwords: [jsf, spring, hibernate, weblogic, python] }
-const cars = { name: "CARS", organization: fed, buzzwords: [j2ee, weblogic, python] }
+const mts = { name: "MTS", organization: fed, buzzwords: [springDataJpa, java, junit] }
+const brs = { name: "BRS", organization: fed, buzzwords: [hibernate, struts, jquery, thymeLeaf, twitterBootstrap, springWebMvc, springWebflow, springDataJpa,java, junit] }
+const btm = { name: "BTM", organization: fed, buzzwords: [jsf, spring, hibernate, weblogic, python,java, junit] }
+const cars = { name: "CARS", organization: fed, buzzwords: [j2ee, weblogic, python, java, junit] }
 
 
 const tenures: Tenure[] = [
@@ -200,7 +206,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [att],
         team: vsss,
-        buzzwords: [java, jsp, struts, mvc, javascript, hibernate, hql, ajax, ejb, was, jquery, css]
+        buzzwords: [java, jsp, struts, mvc, javascript, hibernate, hql, ajax, ejb, was, jquery, css, junit]
     },
     {
         startDate: "2007/01",
@@ -218,7 +224,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [att],
         team: cim,
-        buzzwords: [java, db2, datastage, aix, plSql, swing]
+        buzzwords: [java, db2, datastage, aix, plSql, swing, junit]
     },
     {
         startDate: "2009/01",
@@ -227,7 +233,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [att],
         team: sdp,
-        buzzwords: [wps, soap, jms, java, bpel, xml, j2ee, ejb, oracleDb, bz("Cruise Control", [cicd])]
+        buzzwords: [wps, soap, jms, java, bpel, xml, j2ee, ejb, oracleDb, bz("Cruise Control", [cicd]), junit]
     },
     {
         startDate: "2010/01",
@@ -236,7 +242,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [att],
         team: forceAnalyst,
-        buzzwords: [swing, java, spring]
+        buzzwords: [swing, java, spring, junit]
     },
     {
         startDate: "2010/09",
@@ -272,7 +278,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [bayer, signature],
         team: prodDev,
-        buzzwords: [react, redux, nodeJs, mongoDb, clojure, liberator, scala, playFramework, postgreSql, cloudFoundry, cloudFormation, jenkins, teamCity, debian, windows, macOs, kafka]
+        buzzwords: [react, redux, nodeJs, mongoDb, clojure, liberator, scala, playFramework, postgreSql, cloudFoundry, cloudFormation, jenkins, teamCity, debian, windows, macOs, kafka, jest, mocha]
     },
     {
         startDate: "2017/07",
@@ -299,7 +305,7 @@ const tenures: Tenure[] = [
         title: "Senior Software Engineer",
         role: "programmer",
         organizations: [veho],
-        buzzwords: [redshift, fivetran, dbt, beansstalk, ecs, cdk, circleCi, heroku, lambda, dynamoDb, appSync, graphQl, mongoDb, meteor, typescript, reactNative, timesream, cloudWatch, newRelic, docker, ansible, ec2, awsIam ]
+        buzzwords: [redshift, fivetran, dbt, beansstalk, ecs, cdk, circleCi, heroku, lambda, dynamoDb, appSync, graphQl, mongoDb, meteor, typescript, reactNative, timesream, cloudWatch, newRelic, docker, ansible, ec2, awsIam, jest ]
     },
 
 
