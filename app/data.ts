@@ -24,6 +24,7 @@ const cloudOps = { name: "Cloud Engineering", organization: bayer }
 
 const teams = [sam, vsss, robotask, cim, sdp, forceAnalyst, isaac, prodDev, cloudOps]
 
+const data = bz("Data")
 const integration = bz("integration")
 const http = bz("HTTP")
 const api = bz("Application Programmer's Interface (API)", [bz("API"),integration])
@@ -49,7 +50,7 @@ const jsp = bz("JSP", [web, java, server])
 const json = bz("JSON", [javascript])
 const xml = bz("XML")
 const ajax = bz("AJAX", [javascript, xml])
-const database = bz("Database", [server])
+const database = bz("Database", [server, data])
 const sql = bz("SQL")
 const relational = bz("Relational", [database, sql])
 const orm = bz("ORM", [relational, oo, server])
@@ -66,7 +67,7 @@ const scripting = bz("Scripting", [programmingLanguage])
 const ksh = bz("Ksh", [scripting, unix, linux])
 const hpUx = bz("HP-UX", [unix])
 const db2 = bz("DB2", [relational])
-const etl = bz("Extract Transform Load (ETL)", [database, sql])
+const etl = bz("Extract Transform Load (ETL)", [bz("ETL"), database, sql])
 const datastage = bz("IBM DataStage", [etl])
 const aix = bz("IBM AIX", [unix])
 const oracleDb = bz("Oracle DB", [relational])
@@ -113,7 +114,6 @@ const mongoDb = bz("MongoDb", [database, noSql])
 const fp = bz("Functional Programming")
 const clojure = bz("Clojure", [programmingLanguage, jvm, fp])
 const liberator = bz("Liberator", [web, clojure])
-const data = bz("data")
 const streaming = bz("Streaming", [data])
 const middleWare = bz("Middleware")
 const kafka = bz("Kafka", [streaming, data, integration, middleWare])
@@ -155,8 +155,8 @@ const cloudTrail = bz("AWS CloudTrail", [aws])
 const awsOrgs = bz("AWS Organizations", [aws]) 
 const awsIam = bz("AWS IAM", [aws, authn, authz]) 
 const awsAlb = bz("AWS ALB", [aws, middleWare, integration])
-const observaiblity = bz("Observability")
-const splunk = bz("Splunk", [observaiblity])
+const observability = bz("Observability")
+const splunk = bz("Splunk", [observability])
 const hashicorpVault = bz("HashiCorp Vault", [security])
 const redshift= bz("AWS Redshift", [aws, database, relational])
 const fivetran= bz("Fivetran", [data, integration, middleWare])
@@ -172,7 +172,7 @@ const typescript= bz("TypeScript", [javascript])
 const mobile = bz("Mobile")
 const reactNative= bz("React Native", [gui, mobile])
 const timesream= bz("Timestream", [aws, database,noSql])
-const newRelic= bz("New Relic", [observaiblity])
+const newRelic= bz("New Relic", [observability])
 const docker= bz("Docker", [containers])
 const ansible = bz("Ansible")
 const testing = bz("testing", [bz("test")])
@@ -295,7 +295,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [bayer],
         team: cloudOps,
-        buzzwords: [vpc, transitGateway, stno, ec2, githubEnterprise, dome9, saml, azureAd, bosh, cloudFoundry, certs, slack, lambda, sqs, python, serviceCatalog, ecs, fargate, dynamoDb, cloudWatch, cloudTrail, awsOrgs, awsIam, splunk, hashicorpVault, awsAlb], 
+        buzzwords: [vpc, transitGateway, stno, ec2, githubEnterprise, dome9, saml, azureAd, bosh, cloudFoundry, certs, slack, lambda, sqs, python, serviceCatalog, ecs, fargate, dynamoDb, cloudWatch, cloudTrail, awsOrgs, awsIam, splunk, hashicorpVault, awsAlb, nodeJs, javascript], 
 
     },
 
