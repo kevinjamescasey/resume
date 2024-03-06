@@ -24,6 +24,19 @@ const cloudOps = { name: "Cloud Engineering", organization: bayer }
 
 const teams = [sam, vsss, robotask, cim, sdp, forceAnalyst, isaac, prodDev, cloudOps]
 
+export interface Buzzword {
+    name: string
+    related: Buzzword[]
+}
+
+export const allBuzzwordNames: string[] = []
+
+const bz = function bz(name: string, related: Buzzword[] = []) {
+    allBuzzwordNames.push(name);
+
+    return { name, related };
+}
+
 const data = bz("Data")
 const integration = bz("integration")
 const http = bz("HTTP")
@@ -93,7 +106,8 @@ const twitterBootstrap = bz("Twitter Bootstrap", [css])
 const thymeLeaf = bz("Thymeleaf", [web, gui])
 const springWebMvc = bz("Spring Web MVC", [spring, web, mvc, server])
 const springWebflow = bz("Spring Webflow", [spring, web, gui])
-const cicd = bz("Continuous Integration/Continuous Deployment", [bz("CI/CD")])
+const devOps = bz("DevOps")
+const cicd = bz("Continuous Integration/Continuous Deployment", [bz("CI/CD"), devOps])
 
 const knockoutJs = bz("Knockout", [javascript, web, gui])
 const requireJs = bz("RequireJS", [javascript])
@@ -108,7 +122,7 @@ const python = bz("Python", [programmingLanguage])
 const weblogic = bz("IBM WebLogic", [bz("WebLogic"), j2ee])
 const react = bz("React", [web, gui])
 const redux = bz("Redux", [react])
-const nodeJs = bz("NodeJs", [server, web, javascript])
+const nodeJs = bz("NodeJs", [server, http, javascript])
 const noSql = bz("NoSql", [database])
 const mongoDb = bz("MongoDb", [database, noSql])
 const fp = bz("Functional Programming")
@@ -134,7 +148,8 @@ const windows = bz("Windows", [os])
 const macOs = bz("MacOs", [os])
 const vpc = bz("VPC", [aws]) 
 const transitGateway = bz("Transit Gateway", [aws]) 
-const stno = bz("Serverless Transit Network Orchestrator", [aws, vpc, transitGateway]) 
+const serverless = bz("Serverless")
+const stno = bz("Serverless Transit Network Orchestrator", [aws, vpc, transitGateway, serverless]) 
 const ec2 = bz("EC2", [aws]) 
 const git = bz("Git")
 const githubEnterprise = bz("GitHub Enterprise", [git])
@@ -143,13 +158,14 @@ const saml = bz("SAML", [authn])
 const azureAd = bz("AzureAd", [authn]) 
 const bosh = bz("BOSH",  [cloudFoundry]) 
 const certs = bz("SSL Certificate", [security]) 
-const slack = bz("Slack") 
-const lambda = bz("AWS Lambda", [aws, bz("Lambda")]) 
+const slack = bz("Slack")
+const lambda = bz("AWS Lambda", [aws, bz("Lambda"), serverless]) 
+const serverlessFramework = bz("Serverless Framework", [lambda])
 const sqs = bz("AWS SQS", [aws, bz("SQS"), middleWare]) 
 const serviceCatalog = bz("AWS Service Catalog", [aws]) 
 const ecs = bz("AWS ECS", [bz("ECS"), aws, containers]) 
-const fargate = bz("Fargate", [aws, ecs, containers]) 
-const dynamoDb = bz("DynamoDB", [aws, noSql, database]) 
+const fargate = bz("Fargate", [aws, ecs, containers, serverless]) 
+const dynamoDb = bz("DynamoDB", [aws, noSql, database, serverless]) 
 const cloudWatch = bz("AWS CloudWatch", [aws]) 
 const cloudTrail = bz("AWS CloudTrail", [aws]) 
 const awsOrgs = bz("AWS Organizations", [aws]) 
@@ -165,7 +181,7 @@ const beansstalk= bz("AWS Beanstalk", [aws, ec2])
 const cdk= bz("Cloud Development Kit (CDK)", [bz("CDK"), aws, iac])
 const circleCi= bz("CircleCI", [cicd])
 const heroku= bz("Heroku", [paas, cloud])
-const graphQl= bz("GraphQL", [api, service])
+const graphQl= bz("GraphQL", [api, service, webService])
 const appSync= bz("AWS AppSync", [aws, web, api, graphQl, integration])
 const meteor= bz("Meteor", [web, javascript])
 const typescript= bz("TypeScript", [javascript])
@@ -295,7 +311,7 @@ const tenures: Tenure[] = [
         role: "programmer",
         organizations: [bayer],
         team: cloudOps,
-        buzzwords: [vpc, transitGateway, stno, ec2, githubEnterprise, dome9, saml, azureAd, bosh, cloudFoundry, certs, slack, lambda, sqs, python, serviceCatalog, ecs, fargate, dynamoDb, cloudWatch, cloudTrail, awsOrgs, awsIam, splunk, hashicorpVault, awsAlb, nodeJs, javascript], 
+        buzzwords: [vpc, transitGateway, stno, ec2, githubEnterprise, dome9, saml, azureAd, bosh, cloudFoundry, certs, slack, lambda, sqs, python, serviceCatalog, ecs, fargate, dynamoDb, cloudWatch, cloudTrail, awsOrgs, awsIam, splunk, hashicorpVault, awsAlb, nodeJs, javascript, serverlessFramework], 
 
     },
 
@@ -311,14 +327,7 @@ const tenures: Tenure[] = [
 
 ]
 
-export interface Buzzword {
-    name: string
-    related: Buzzword[]
-}
 
-function bz(name: string, related: Buzzword[] = []) {
-    return { name, related }
-}
 
 export interface Project {
     name: string
