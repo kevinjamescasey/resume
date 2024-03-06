@@ -29,7 +29,7 @@ function Filter({ filters, setFilters }: { filters: string[], setFilters: (t: st
         {filters.map(filter => (
           <div key={filter} className='bg-red-300 text-white rounded-lg ps-2 m-0.5'>
             {filter}
-            <button onClick={() => setFilters(filters.filter(f => f !== filter))} className="font-medium text-red-500 text-xs mx-1 px-1 rounded-full bg-white font-sans">
+            <button onClick={() => setFilters(filters.filter(f => f !== filter))} className="font-medium text-red-500 text-xs mx-1 px-1 rounded-full bg-white font-sans hover:scale-150">
               X
             </button>
           </div>
