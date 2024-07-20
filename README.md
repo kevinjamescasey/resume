@@ -1,6 +1,6 @@
 # Notes
 
-I think the `next build` and `next build` commands are setting NODE_ENV
+I think the `next build` and `next build` commands are setting NODE_ENV  
 There is a hint about it at https://nextjs.org/docs/messages/non-standard-node-env
 
 ## `next.config.mjs`

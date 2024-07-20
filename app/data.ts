@@ -7,6 +7,7 @@ const ferguson = { name: "Ferguson", purpose: "Staffing Company" }
 const bayer = { name: "Monsanto/Bayer", purpose: "Life Sciences Company" }
 const signature = { name: "Signature Consulting", purpose: "Staffing Company" }
 const veho = { name: "Veho", purpose: "Shipping Company" }
+const rga = {name: "Reinsurance Group of America", purpose: "Reinsurance Company"}
 
 const organizations = [
     att, fed, adaptive
@@ -85,6 +86,7 @@ const datastage = bz("IBM DataStage", [etl])
 const aix = bz("IBM AIX", [unix])
 const oracleDb = bz("Oracle DB", [relational])
 const plSql = bz("PL/SQL", [sql, oracleDb])
+const snowflake = bz("Snowflake", [database])
 
 const ui = bz("User Interface (UI)", [bz("UI"), bz("front end")])
 const gui = bz("Graphical User Interface (GUI)", [bz("GUI"), ui])
@@ -141,6 +143,7 @@ const cloud = bz("cloud")
 const aws = bz("AWS", [cloud])
 const iac = bz("Infrastructure as Code", [bz("IaC")])
 const cloudFormation = bz("Cloud Formation", [aws, iac])
+const terraform = bz("Terraform", [iac])
 const jenkins = bz("Jenkins", [cicd])
 const teamCity = bz("Team City", [cicd])
 const debian = bz("Debian", [linux])
@@ -186,7 +189,7 @@ const appSync= bz("AWS AppSync", [aws, web, api, graphQl, integration])
 const meteor= bz("Meteor", [web, javascript])
 const typescript= bz("TypeScript", [javascript])
 const mobile = bz("Mobile")
-const reactNative= bz("React Native", [gui, mobile])
+const reactNative= bz("React Native", [gui, mobile, react])
 const timesream= bz("Timestream", [aws, database,noSql])
 const newRelic= bz("New Relic", [observability])
 const docker= bz("Docker", [containers])
@@ -324,6 +327,14 @@ const tenures: Tenure[] = [
         buzzwords: [redshift, fivetran, dbt, beansstalk, ecs, cdk, circleCi, heroku, lambda, dynamoDb, appSync, graphQl, mongoDb, meteor, typescript, reactNative, timesream, cloudWatch, newRelic, docker, ansible, ec2, awsIam, jest ]
     },
 
+    {
+        startDate: "2024/03",
+        // endDate: ""
+        title: "Senior Software Engineer",
+        role: "programmer",
+        organizations: [rga],
+        buzzwords: [javascript, terraform, hashicorpVault, jenkins, snowflake]
+    },
 
 ]
 
@@ -336,7 +347,7 @@ export interface Project {
 
 export interface Tenure {
     startDate: string
-    endDate: string
+    endDate?: string
     title: string
     role: string
     organizations: any[]

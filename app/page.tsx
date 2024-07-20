@@ -114,7 +114,7 @@ function Tenure({ tenure, showDates = true, filters }: { tenure: Tenure, showDat
     return tenure.projects.map((p) => <ProjectDisplay project={p} filters={filters} key={p.name} />) //TODO: investigate if key prop is used correctly?
   }
   return (<div key={tenure.title + tenure.startDate + tenure.endDate}>
-    <div>{showDates && <span>{tenure.startDate} - {tenure.endDate} </span>}{tenure.title}{tenure.team && <span> - {tenure.team.name}</span>}</div>
+    <div>{showDates && <span>{tenure.startDate} - {tenure.endDate} </span>}{tenure.organizations.length > 1 && <span>(contract) </span>}{tenure.title}{tenure.team && <span> - {tenure.team.name}</span>}</div>
     {tenure.buzzwords && <Buzzwords buzzwords={tenure.buzzwords} filters={filters} />}
   </div>)
 }
@@ -132,7 +132,7 @@ function OrgStentDisplay({ orgStent, filters }: { orgStent: OrgStent, filters: s
 
   return <div className="py-2" key={orgStent.orgName + from + to}>
     <h3 className="text-xl">{orgStent.orgName}</h3>
-    <h2>{from && from.startDate} - {to && to.endDate}</h2>
+    <h2>{from && from.startDate} - {to ? to.endDate : 'present'}</h2>
 
     <ExperienceList tenures={orgStent.tenures} showDates={false} filters={filters} />
   </div>
