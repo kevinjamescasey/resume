@@ -219,6 +219,7 @@ const hashicorpVault = bz("HashiCorp Vault", [security]);
 const redshift = bz("AWS Redshift", [aws, database, relational]);
 const fivetran = bz("Fivetran", [data, integration, middleWare]);
 const dbt = bz("DBT", [relational]);
+const metabase = bz("Metabase", [data])
 const beansstalk = bz("AWS Beanstalk", [aws, ec2]);
 const cdk = bz("Cloud Development Kit (CDK)", [bz("CDK"), aws, iac]);
 const circleCi = bz("CircleCI", [cicd]);
@@ -362,7 +363,6 @@ const tenures: Tenure[] = [
         organizations: [att],
         team: isaac,
         buzzwords: [
-            gui,
             javascript,
             jsp,
             rhino,
@@ -494,6 +494,7 @@ const tenures: Tenure[] = [
             redshift,
             fivetran,
             dbt,
+            metabase,
             beansstalk,
             ecs,
             cdk,
