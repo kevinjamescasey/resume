@@ -532,6 +532,7 @@ const tenures: Tenure[] = [
             jenkins,
             snowflake,
             dataDog,
+            python,
         ],
     },
 ];
